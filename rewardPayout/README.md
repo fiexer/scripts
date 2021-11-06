@@ -27,13 +27,18 @@ const wsProvider = new WsProvider('ws://localhost:9944');
 ```
 const REWARD_mSDN = 1000; // 1000 mSDN = 1 SDN
 ```
+4. Change mnemonics for the sender/signer
+```
+
+const MAARTEN = keyring.addFromUri('//Alice');
+```
 
 
-4. Run this script with
+5. Run this script with
 ```
 node --experimental-json-modules rewardPayout.js
 ```
-5. Following warnings are expected. Ignore them
+6. Following warnings are expected. Ignore them
 ```
 (node:3027) ExperimentalWarning: Importing JSON modules is an experimental feature. This feature could change at any time
 (Use `node --trace-warnings ...` to show where the warning was created)
