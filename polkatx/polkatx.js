@@ -1,37 +1,26 @@
 import { ApiPromise, WsProvider } from '@polkadot/api';
-import _ from '@astar-network/types';
 import { Keyring } from '@polkadot/api';
-const {shidenDefinitions} = _;
-const wsProvider = new WsProvider('ws://localhost:9944');
+import BN from 'bn.js';
 
-// const api = await ApiPromise.create({ provider: wsProvider });
-const api = await ApiPromise.create({
-  provider: new WsProvider('ws://localhost:9944'),
-  types: {
-      ...shidenDefinitions,
-  }
-});
+const wsProvider = new WsProvider('ws://localhost:9944');
+const api = await ApiPromise.create({ provider: wsProvider });
 
 const keyring = new Keyring({ type: 'sr25519' });
 const ALICE = keyring.addFromUri('//Alice');
 const BOB = keyring.addFromUri('//Bob');
-
-// Retrieve the account balance
-const { data: aliceBalance } = await api.query.system.account(ALICE.address);
-console.log("Alice's initial balance", aliceBalance.free.toHuman());
-const { data: bobBalance } = await api.query.system.account(BOB.address);
-console.log("Bob's initial balance", bobBalance.free.toHuman());
+const DECIMALS = new BN('1000000000000000000');
+const AMOUNT = 100;
+const AMOUNT_BN = DECIMALS.mul(new BN(AMOUNT));
 
 // Subscribe to balance change
 const unsubAlice = await api.query.system.account.multi([ALICE.address, BOB.address], (balances) => {
     const [{ data: balance1 }, { data: balance2 }] = balances;
-
     console.log(`Alice = ${balance1.free.toHuman()}, Bob = ${balance2.free.toHuman()}`);
 });
 
 // Make a transfer from Alice to BOB, waiting for inclusion
 const unsub = await api.tx.balances
-  .transfer(BOB, 100)
+  .transfer(BOB.address, AMOUNT_BN)
   .signAndSend(ALICE, (result) => {
     console.log(`Current status is ${result.status}`);
 
