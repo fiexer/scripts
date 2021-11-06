@@ -1,5 +1,3 @@
-# scripts
-
 # rewardPayout
 Sends fix amount of tokens to the list of addresses defined in the destination.json file.
 If used on the local network, script will send 1 token from Alice to Bob and to Dave.
