@@ -1,0 +1,11 @@
+{
+  "name": "rewardPayout",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@astar-network/types": "^1.0.0",
+    "@polkadot/api": "^6.6.1"
+  }
+}
