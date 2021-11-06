@@ -35,3 +35,9 @@ const REWARD_mSDN = 1000; // 1000 mSDN = 1 SDN
 ```
 node --experimental-json-modules rewardPayout.js
 ```
+5. Following warnings are expected. Ignore them
+```
+(node:3027) ExperimentalWarning: Importing JSON modules is an experimental feature. This feature could change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+2021-11-06 22:54:02        METADATA: Unknown types found, no types for EraRewardAndStake, EraStakingPoints, SmartContract
+```
